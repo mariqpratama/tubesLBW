@@ -1,6 +1,6 @@
 <?php
 // memuat halaman json
-//testting
+//testting aja
 $data = file_get_contents("https://ftisunpar.github.io/data/prasyarat.json");
 
 
