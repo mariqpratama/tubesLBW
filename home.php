@@ -34,13 +34,21 @@ $parsedata = json_decode($data);
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="cari">
+                    <button class="btn btn-outline-success" type="submit" value="cari">Search</button>
                 </form>
             </div>
         </div>
     </nav>
     <div class="container p-3">
+
+        <?php
+        if (isset($_GET['cari'])) {
+            $cari = $_GET['cari'];
+            echo "<b>Hasil pencarian : " . $cari . "</b>";
+        } else {
+        }
+        ?>
         <?php
         for ($j = 1; $j <= 8; $j++) {
 
@@ -129,7 +137,7 @@ $parsedata = json_decode($data);
                                                     //FINDING ELEMENTS OF ROWS AND STORING THEM IN VARIABLES
                                                     var a =
                                                         $(this).parents("tr").find(".gfgusername").text();
-                                                   
+
                                                     // CREATING DATA TO SHOW ON MODEL
                                                     p +=
                                                         "<p id='a' name='GFGusername' >GFG UserHandle: " +
