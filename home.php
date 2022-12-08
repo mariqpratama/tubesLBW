@@ -1,6 +1,5 @@
 <?php
 // memuat halaman json
-//testting kedua
 $data = file_get_contents("https://ftisunpar.github.io/data/prasyarat.json");
 
 
@@ -14,7 +13,28 @@ $parsedata = json_decode($data);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Rekomendasi Mata Kuliah Informatika</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous">
+    </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <style>
+        #container1 {
+            border: 1px solid gainsboro;
+            border-radius: 16px;
+            margin: auto;
+            padding: 20px;
+            box-shadow: 5px 8px #888888;
+        }
+    </style>
+
 </head>
 
 <body class="bg-secondary">
@@ -34,21 +54,13 @@ $parsedata = json_decode($data);
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="cari">
-                    <button class="btn btn-outline-success" type="submit" value="cari">Search</button>
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
         </div>
     </nav>
     <div class="container p-3">
-
-        <?php
-        if (isset($_GET['cari'])) {
-            $cari = $_GET['cari'];
-            echo "<b>Hasil pencarian : " . $cari . "</b>";
-        } else {
-        }
-        ?>
         <?php
         for ($j = 1; $j <= 8; $j++) {
 
@@ -79,86 +91,184 @@ $parsedata = json_decode($data);
                             if ($parsedata[$i]->semester === $j) {
                             ?>
                                 <tr>
-                                    <td scope="row"><?php echo $parsedata[$i]->kode; ?></td>
-
-                                    <td> <?php echo $parsedata[$i]->nama; ?></td>
-                                    <td> <?php echo $parsedata[$i]->sks; ?></td>
-                                    <td> <?php
-                                            if ($parsedata[$i]->wajib === true) {
-                                                echo "wajib";
-                                            } else {
-                                                echo "Pilihan";
+                                    <td class="tempuh" style="display:none;">
+                                        ~
+                                        <?php
+                                        foreach ($parsedata[$i]->prasyarat->tempuh as $syarat) {
+                                            for ($k = 0; $k < count($parsedata); $k++) {
+                                                if ($parsedata[$k]->kode === $syarat) {
+                                                    echo $parsedata[$k]->nama;
+                                                }
                                             }
+                                        ?> ~ <?php
+                                                ?>
 
-                                            ?>
+                                        <?php
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="lulus" style="display:none;">
+                                        ~
+                                        <?php
+                                        foreach ($parsedata[$i]->prasyarat->lulus as $syarat) {
+                                            for ($k = 0; $k < count($parsedata); $k++) {
+                                                if ($parsedata[$k]->kode === $syarat) {
+                                                    echo $parsedata[$k]->nama;
+                                                }
+                                            }
+                                        ?> ~ <?php
+                                                ?>
+
+                                        <?php
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="bersamaan" style="display:none;">
+                                        ~
+                                        <?php
+                                        foreach ($parsedata[$i]->prasyarat->bersamaan as $syarat) {
+                                            for ($k = 0; $k < count($parsedata); $k++) {
+                                                if ($parsedata[$k]->kode === $syarat) {
+                                                    echo $parsedata[$k]->nama;
+                                                }
+                                            }
+                                        ?> ~ <?php
+                                                ?>
+
+                                        <?php
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class=" kode"><?php echo $parsedata[$i]->kode; ?></td>
+
+                                    <td class="nama"> <?php echo $parsedata[$i]->nama; ?></td>
+                                    <td> <?php echo $parsedata[$i]->sks; ?></td>
+                                    <td class="wajib"> <?php
+                                                        if ($parsedata[$i]->wajib === true) {
+                                                            echo "wajib";
+                                                        } else {
+                                                            echo "Pilihan";
+                                                        }
+
+                                                        ?>
                                     </td>
                                     <td>
 
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            Detail
-                                        </button>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detail Mata Kuliah</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
+                                        <button class="btn btn-primary " data-toggle="modal" data-target="#gfgmodal">
+                                            Detail</button>
 
-                                                    <div class="modal-body">
-                                                        <div class="container">
-                                                            <h2>Kode Mata kuliah</h2>
-                                                        </div>
-                                                        <div class="d-flex mb-3">
-                                                            <div class="p-2">
-                                                                <h3>Nama Mata kuliah</h3>
-                                                            </div>
-                                                            <div class="ms-auto p-2">
-                                                                <h3>wajib/pilihan</h3>
-                                                            </div>
-                                                        </div>
-                                                        <div class="container">
-                                                            <h4>Prasayrat Mata Kuliah</h4>
-                                                            <p>Tempuh:</p>
-                                                            <p>Bersamaan:</p>
-                                                            <p>Lulus:</p>
-                                                        </div>
-                                                    </div>
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Modal end -->
+
+
+                                        <!-- modal -->
                                         <script>
                                             $(function() {
                                                 // ON SELECTING ROW
                                                 $(".btn").click(function() {
                                                     //FINDING ELEMENTS OF ROWS AND STORING THEM IN VARIABLES
                                                     var a =
-                                                        $(this).parents("tr").find(".gfgusername").text();
+                                                        $(this).parents("tr").find(".kode").text();
+                                                    var c =
+                                                        $(this).parents("tr").find(".nama").text();
+                                                    var d =
+                                                        $(this).parents("tr").find(".wajib").text();
+                                                    var e =
+                                                        $(this).parents("tr").find(".tempuh").text();
+                                                    var f =
+                                                        $(this).parents("tr").find(".lulus").text();
+                                                    var g =
+                                                        $(this).parents("tr").find(".bersamaan").text();
 
-                                                    // CREATING DATA TO SHOW ON MODEL
-                                                    p +=
-                                                        "<p id='a' name='GFGusername' >GFG UserHandle: " +
-                                                        a + " </p>";
-
-                                                    p +=
-                                                        "<p id='c' name='GFGpp'>Practice Problems: " +
-                                                        c + "</p>";
-                                                    p +=
-                                                        "<p id='d' name='GFGscores' >Coding Score: " +
-                                                        d + " </p>";
-                                                    p +=
-                                                        "<p id='e' name='GFGcoding' >GFG Article: " +
-                                                        e + " </p>";
                                                     //CLEARING THE PREFILLED DATA
-                                                    $("#divGFG").empty();
+                                                    $("#kodeM").empty();
                                                     //WRITING THE DATA ON MODEL
-                                                    $("#divGFG").append(p);
+                                                    $("#kodeM").append(a);
+
+                                                    $("#namaM").empty();
+                                                    $("#namaM").append(c);
+                                                    $("#wajibM").empty();
+                                                    $("#wajibM").append(d);
+
+
+                                                    $("#tempuhM").empty();
+                                                    $("#tempuhM").append(e);
+                                                    $("#lulusM").empty();
+                                                    $("#lulusM").append(f);
+                                                    $("#bersamaanM").empty();
+                                                    $("#bersamaanM").append(g);
                                                 });
                                             });
                                         </script>
+                                        <!-- CREATING BOOTSTRAP MODEL -->
+                                        <div class="modal fade" id="gfgmodal" tabindex="-1" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <!-- MODEL TITLE -->
+                                                        <h2 class="modal-title" id="gfgmodallabel">
+                                                            Detail Mata Kuliah</h2>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">
+                                                                ×</span>
+                                                        </button>
+                                                    </div>
+                                                    <!-- MODEL BODY -->
+                                                    <div class="modal-body">
+                                                        <!-- <div class="GFGclass" id="divGFG"></div> -->
+
+
+
+
+                                                        <div class="modal-body">
+                                                            <div class="w3-container" id="container1">
+                                                                <h2 style="text-align: center;">Kode Mata kuliah</h2>
+                                                                <div class="GFGclass" id="kodeM" style="text-align: center;"></div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="d-flex mb-3" id="container1">
+                                                                <div class="p-2">
+                                                                    <h3 style="text-align: center;">Nama Mata kuliah</h3>
+                                                                    <div style="text-align: center;" class="GFGclass" id="namaM"></div>
+
+                                                                </div>
+
+                                                                <div class="ms-auto p-2" style="text-align: center;">
+                                                                    <h3>wajib/pilihan</h3>
+                                                                    <div class="GFGclass" id="wajibM"></div>
+
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="container" id="container1">
+                                                                <h4 style="text-align: center;">Prasayrat Mata Kuliah</h4>
+                                                                <br>
+                                                                <p>Tempuh:</p>
+                                                                <div class="GFGclass" id="tempuhM"></div>
+                                                                <br>
+                                                                <p>Bersamaan:</p>
+                                                                <div class="GFGclass" id="bersamaanM"></div>
+                                                                <br>
+                                                                <p>Lulus:</p>
+                                                                <div class="GFGclass" id="lulusM"></div>
+
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="modal-footer">
+                                                            <!-- The close button in the bottom of the modal -->
+                                                            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                                Close</button> -->
+                                                            <p>Detail Mata Kuliah Sesuai Kurikulum Jurusan Informatika 2018 </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- end modal  -->
 
                                     </td>
                                 </tr>
@@ -180,7 +290,6 @@ $parsedata = json_decode($data);
         ?>
 
     </div>
-
 
 
 
