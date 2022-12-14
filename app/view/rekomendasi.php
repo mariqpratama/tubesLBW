@@ -1,10 +1,10 @@
 <?php
 // memuat halaman json
-$data = file_get_contents("https://ftisunpar.github.io/data/prasyarat.json");
+$data1 = file_get_contents("https://ftisunpar.github.io/data/prasyarat.json");
 
 
 // parse / uraikan data 
-$parsedata = json_decode($data);
+$parsedata = json_decode($data1);
 
 ?>
 
@@ -14,6 +14,18 @@ $parsedata = json_decode($data);
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
       Masukan Data
     </button>
+
+
+    <ul class="list-group mt-4">
+      <?php foreach($data['matkul'] as $mat) : ?>
+        <li class="list-group-item">
+          <?= $mat['kodeMK']; ?>&emsp;
+          <?= $mat['namaMK']; ?>&emsp;
+          <?= $mat['statusMK']; ?>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
