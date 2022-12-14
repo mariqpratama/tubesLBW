@@ -1,2 +1,0 @@
-# tubesLBW
-tugas besar LBW
