@@ -1,0 +1,7 @@
+#container1 {
+    border: 1px solid gainsboro;
+    border-radius: 16px;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 5px 8px #888888;
+}
