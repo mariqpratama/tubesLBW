@@ -1,6 +1,6 @@
 <?php 
 
-define('BASEURL', 'http://localhost/tubes/public');
+define('BASEURL', 'http://localhost/tubesLBW/public');
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
