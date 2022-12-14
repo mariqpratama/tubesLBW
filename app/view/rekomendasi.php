@@ -16,6 +16,11 @@ $parsedata = json_decode($data1);
     </button>
 
 
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+      Masukan Data Mata Kuliah
+    </button>
+
+
     <ul class="list-group mt-4">
       <?php foreach($data['matkul'] as $mat) : ?>
         <li class="list-group-item">
@@ -25,6 +30,45 @@ $parsedata = json_decode($data1);
         </li>
         <?php endforeach; ?>
     </ul>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Daftar Mata Kuliah</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form action="<?= BASEURL; ?>/rekomendasi/tambah" method="post">
+                  <div class="d-flex">
+                      <input type="text" id="kodeMK" name="kodeMK" placeholder="Kode Mata Kuliah" class="form-control">&emsp;
+                      <input type="text" id="namaMK" name="namaMK" placeholder="Nama Mata Kuliah" class="form-control">&emsp;
+                      <input type="text" id="statusMK" name="statusMK" placeholder="Status Mata Kuliah (Lulus/Tempuh)" class="form-control">
+                    <!-- <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Dropdown button
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Lulus</a></li>
+                          <li><a class="dropdown-item" href="#">Tempuh</a></li>
+                        </ul>
+                      </div> -->
+                  </div>
+                  <br>
+                  <div>
+                    <button class="btn btn-primary" type="submit">
+                      Save
+                    </button>
+                  </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
 
     <!-- Modal -->
