@@ -1,4 +1,4 @@
 # tubesLBW
 tugas besar LBW
 
-http://localhost/tubes/public/home
+http://localhost/tubesLBW/public/home
